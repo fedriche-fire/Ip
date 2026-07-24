@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr las GAMES - Client Spécial Beta</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome (Icônes) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-body: #0b0f19;
+            --bg-card: #151c2e;
+            --accent-color: #ff4757;
+            --accent-hover: #ff6b81;
+            --text-main: #ffffff;
+            --text-muted: #cbd5e1;
+            --border-color: #334155;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        .hero-section {
+            padding: 50px 0 30px;
+            background: radial-gradient(circle at top, rgba(255, 71, 87, 0.2), transparent 70%);
+        }
+
+        .card-custom {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .text-muted {
+            color: var(--text-muted) !important;
+        }
+
+        .btn-buy {
+            background-color: var(--accent-color);
+            color: #fff;
+            font-weight: 700;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-buy:hover {
+            background-color: var(--accent-hover);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.4);
+        }
+
+        .badge-price {
+            font-size: 1.8rem;
+            color: #2ed573;
+            font-weight: 800;
+        }
+
+        .step-number {
+            width: 42px;
+            height: 42px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 25px;
+            right: 25px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 32px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            color: #FFF;
+            transform: scale(1.1);
+        }
+
+        /* Modal styling */
+        .modal-content {
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        footer a {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            margin: 0 12px;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Cadre de navigation personnalisé pour la vérification */
+        .verify-modal-body {
+            padding: 0;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .verify-nav-bar {
+            background-color: #1e293b;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #ff4757;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .verify-iframe {
+            width: 100%;
+            flex-grow: 1;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Section En-tête -->
+    <header class="hero-section text-center">
+        <div class="container px-3">
+            <span class="badge bg-danger mb-2 px-3 py-2 fw-bold">ÉDITION SPÉCIALE VIP</span>
+            <h1 class="fw-bold display-6 mb-3">Free Fire Beta Special Client</h1>
+            <p class="text-muted col-md-8 mx-auto fs-6">
+                L'application ultime pour créer du contenu TikTok & YouTube : accède aux skins, emotes et titres VIP en avant-première.
+            </p>
+        </div>
+    </header>
+
+    <main class="container pb-5">
+        <div class="row g-4 justify-content-center">
+            
+            <!-- 1. Section Vérification d'ID -->
+            <div class="col-lg-8">
+                <div class="card-custom p-4 text-center">
+                    <h4 class="fw-bold mb-2"><i class="fa-solid fa-id-card text-warning me-2"></i>Espace Vérification d'ID</h4>
+                    <p class="text-muted small mb-3">Saisis ton ID joueur ci-dessous pour accéder à la zone sécurisée de vérification.</p>
+                    
+                    <div class="row g-2 justify-content-center">
+                        <div class="col-sm-8">
+                            <input type="text" id="verifyIDInput" class="form-control bg-dark text-white border-secondary text-center" placeholder="Entre ton ID joueur (ex: 987654321)...">
+                        </div>
+                        <div class="col-sm-4">
+                            <button id="btnVerify" class="btn btn-warning w-100 fw-bold">
+                                <i class="fa-solid fa-magnifying-glass me-1"></i> Vérifier l'ID
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Carte Offre & Achat -->
+            <div class="col-lg-8">
+                <div class="card-custom p-4 text-center">
+                    <h3 class="fw-bold mb-2">Obtenir la Version Spéciale</h3>
+                    <p class="text-muted small mb-3">Téléchargement instantané de l'APK après paiement</p>
+                    
+                    <div class="mb-3">
+                        <span class="badge-price">10 000 FCFA</span>
+                        <span class="text-muted d-block small">Paiement unique • Accès illimité</span>
+                    </div>
+
+                    <div class="bg-dark p-3 rounded mb-4 text-start border border-secondary">
+                        <h6 class="text-warning fw-bold mb-2"><i class="fa-solid fa-star me-2"></i>Inclus dans cette version :</h6>
+                        <ul class="list-unstyled mb-0 text-muted small">
+                            <li class="mb-2"><i class="fa-solid fa-circle-check text-success me-2"></i> Emotes & Skins visuels entièrement débloqués</li>
+                            <li class="mb-2"><i class="fa-solid fa-circle-check text-success me-2"></i> Badge V, Niveau 100 & Titres exclusifs (10 ans, Légende Prime)</li>
+                            <li class="mb-2"><i class="fa-solid fa-circle-check text-success me-2"></i> Diamants & Pièces d'or de démonstration</li>
+                            <li class="mb-2"><i class="fa-solid fa-circle-check text-success me-2"></i> Lien de téléchargement direct MediaFire sécurisé</li>
+                        </ul>
+                    </div>
+
+                    <!-- Bouton déclenchant le Modal de Confirmation -->
+                    <button class="btn btn-buy w-100 py-3 fs-5" data-bs-toggle="modal" data-bs-target="#confirmPayModal">
+                        <i class="fa-solid fa-bolt me-2"></i>Acheter maintenant (10 000 FCFA)
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3. Guide d'utilisation & Conditions d'utilisation -->
+            <div class="col-lg-10 mt-4">
+                <h3 class="fw-bold text-center mb-4"><i class="fa-solid fa-book-open text-primary me-2"></i>Mode d'emploi & Conditions</h3>
+                
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="card-custom p-4 h-100">
+                            <div class="step-number">1</div>
+                            <h5 class="fw-bold">1. Achat & Validation</h5>
+                            <p class="text-muted small">
+                                Après avoir effectué ton paiement sécurisé via Money Fusion, tu seras automatiquement redirigé vers la page de téléchargement <strong>MediaFire</strong>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card-custom p-4 h-100">
+                            <div class="step-number">2</div>
+                            <h5 class="fw-bold">2. Installation APK</h5>
+                            <p class="text-muted small">
+                                Télécharge le fichier `.apk`, autorise les « Sources inconnues » dans les paramètres de ton téléphone, puis lance l'installation.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card-custom p-4 h-100">
+                            <div class="step-number">3</div>
+                            <h5 class="fw-bold">3. Connexion & Usage</h5>
+                            <p class="text-muted small">
+                                Utilise l'espace <strong>Vérification d'ID</strong> une fois les ressources terminées. Connecte-toi en mode client, un message contenant ton ID te sera attribué. Copie-le et vérifie-le ici avant la connexion finale.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avertissement explicite -->
+                <div class="alert alert-warning mt-4 p-3 border-warning bg-dark text-warning">
+                    <h6 class="fw-bold mb-1"><i class="fa-solid fa-triangle-exclamation me-2"></i>IMPORTANT - À LIRE AVANT D'ACHETER :</h6>
+                    <p class="mb-0 small text-muted">
+                        Cette version spéciale Bêta est conçue <strong>uniquement pour les créateurs de contenu</strong> (tournage de vidéos TikTok, shorts YouTube, présentation de skins en avant-première). Il n'est <strong>pas possible d'effectuer des parties multijoueurs classiques</strong> avec cette version.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- MODAL VÉRIFICATION D'ID SÉCURISÉE (NOUVEAU) -->
+    <div class="modal fade" id="verifyFrameModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="verify-modal-body">
+                    <!-- Barre de contrôle avec boutons Précédent / Recharger -->
+                    <div class="verify-nav-bar">
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-outline-light btn-sm fw-bold" onclick="iframeGoBack()">
+                                <i class="fa-solid fa-arrow-left me-1"></i> Précédent (Si pub)
+                            </button>
+                            <button type="button" class="btn btn-outline-warning btn-sm fw-bold" onclick="iframeReset()">
+                                <i class="fa-solid fa-rotate me-1"></i> Recharger la page
+                            </button>
+                        </div>
+                        <span class="small text-muted d-none d-md-inline"><i class="fa-solid fa-shield me-1 text-success"></i> Dr las GAMES - Navigation Sécurisée</span>
+                        <button type="button" class="btn btn-danger btn-sm fw-bold" data-bs-dismiss="modal">
+                            <i class="fa-solid fa-xmark me-1"></i> Fermer
+                        </button>
+                    </div>
+
+                    <!-- Note d'aide anti-pub pour le client -->
+                    <div class="bg-dark text-warning px-3 py-1 border-bottom border-secondary small text-center">
+                        💡 <strong>Astuce :</strong> Si une publicité s'ouvre, clique simplement sur le bouton <strong>« Précédent »</strong> ci-dessus pour revenir à la vérification sans quitter le site.
+                    </div>
+
+                    <!-- Cadre affichant le site externe -->
+                    <iframe id="verifyIframe" class="verify-iframe" src=""></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmation Avant Paiement -->
+    <div class="modal fade" id="confirmPayModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title fw-bold text-danger"><i class="fa-solid fa-shield-halved me-2"></i>Conditions d'Utilisation</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-start">
+                    <p class="text-muted small">Avant d'accéder au guichet de paiement Money Fusion, merci de bien prendre note des éléments suivants :</p>
+                    <ul class="text-muted small mb-3">
+                        <li class="mb-2"><strong>Usage Vidéo Uniquement :</strong> Cette version permet d'essayer les skins/emotes et de faire des vidéos de démonstration. NB: à chaque session vous serez obligé de créer un compte client et revenir sur le site pour vérifier l'ID.</li>
+                        <li class="mb-2"><strong>Pas de parties en ligne :</strong> Tu ne pourras pas lancer de matchs classés ou classiques avec d'autres joueurs en ligne.</li>
+                        <li class="mb-2"><strong>Redirection automatique :</strong> La redirection vers l'app s'effectue directement après le succès du paiement. NB: pas de remboursement, vous êtes conscient de vos choix. Merci !</li>
+                    </ul>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="acceptTerms">
+                        <label class="form-check-label small text-white" for="acceptTerms">
+                            J'ai lu et j'accepte les conditions d'utilisation.
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Annuler</button>
+                    <a href="https://my.moneyfusion.net/6a62bfad9fe969b3f41c3074" id="btnProceedPay" class="btn btn-success fw-bold disabled">
+                        Procéder au Paiement (10 000 FCFA)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pied de page -->
+    <footer class="border-top border-secondary py-4 text-center mt-5">
+        <div class="container">
+            <p class="mb-3 text-muted">Abonne-toi à mes réseaux sociaux pour ne rien rater :</p>
+            <div class="mb-3">
+                <a href="https://www.tiktok.com/@fedrichefire?_r=1&_t=ZS-98HqIeqcF0x" target="_blank" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://youtube.com/@fedrichefire?si=LghzZ-4RzQvGSGB9" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://whatsapp.com/channel/0029VahJmDKGJP8OYE1fH53L" target="_blank" title="Canal WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+            <small class="text-muted">&copy; 2026 @pignouf - Tous droits réservés.</small>
+        </div>
+    </footer>
+
+    <!-- Bouton WhatsApp Flottant -->
+    <a href="https://wa.me/242068393162?text=Bonjour,%20j'ai%20une%20question%20sur%20le%20Client%20Special%20Free%20Fire" class="whatsapp-float" target="_blank" title="Besoin d'aide ?">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts Bootstrap 5 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        let currentVerifyUrl = "";
+        const verifyIframe = document.getElementById('verifyIframe');
+        const verifyModal = new bootstrap.Modal(document.getElementById('verifyFrameModal'));
+
+        // 1. Bouton Vérifier l'ID (Ouvre le cadre personnalisé)
+        document.getElementById('btnVerify').addEventListener('click', function() {
+            const playerID = document.getElementById('verifyIDInput').value.trim();
+            if(!playerID) {
+                alert("Veuillez saisir votre ID joueur.");
+                return;
+            }
+            
+            // Construit le lien direct
+            currentVerifyUrl = "https://UnlockFFBeta.com" + encodeURIComponent(playerID);
+            
+            // Charge l'URL dans le cadre et affiche la fenêtre
+            verifyIframe.src = currentVerifyUrl;
+            verifyModal.show();
+        });
+
+        // 2. Action du bouton Précédent dans le cadre
+        function iframeGoBack() {
+            try {
+                verifyIframe.contentWindow.history.back();
+            } catch(e) {
+                // Si la restriction du navigateur empêche d'accéder à l'historique externe
+                verifyIframe.src = currentVerifyUrl;
+            }
+        }
+
+        // 3. Action du bouton Recharger la page
+        function iframeReset() {
+            verifyIframe.src = currentVerifyUrl;
+        }
+
+        // 4. Gestion de la case à cocher des conditions d'achat
+        const checkbox = document.getElementById('acceptTerms');
+        const payBtn = document.getElementById('btnProceedPay');
+
+        checkbox.addEventListener('change', function() {
+            if(this.checked) {
+                payBtn.classList.remove('disabled');
+            } else {
+                payBtn.classList.add('disabled');
+            }
+        });
+    </script>
+</body>
+</html>
