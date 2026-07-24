@@ -112,6 +112,17 @@
             border: 1px solid var(--border-color);
         }
 
+        .option-card {
+            background-color: #0f172a;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .option-card:hover {
+            border-color: #ff4757;
+        }
+
         footer a {
             color: var(--text-muted);
             font-size: 1.5rem;
@@ -121,31 +132,6 @@
 
         footer a:hover {
             color: var(--accent-color);
-        }
-
-        /* Cadre de navigation personnalisé pour la vérification */
-        .verify-modal-body {
-            padding: 0;
-            height: 80vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .verify-nav-bar {
-            background-color: #1e293b;
-            padding: 10px 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 2px solid #ff4757;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .verify-iframe {
-            width: 100%;
-            flex-grow: 1;
-            border: none;
         }
     </style>
 </head>
@@ -169,7 +155,7 @@
             <div class="col-lg-8">
                 <div class="card-custom p-4 text-center">
                     <h4 class="fw-bold mb-2"><i class="fa-solid fa-id-card text-warning me-2"></i>Espace Vérification d'ID</h4>
-                    <p class="text-muted small mb-3">Saisis ton ID joueur ci-dessous pour accéder à la zone sécurisée de vérification.</p>
+                    <p class="text-muted small mb-3">Saisis ton ID joueur ci-dessous pour accéder à la zone de vérification.</p>
                     
                     <div class="row g-2 justify-content-center">
                         <div class="col-sm-8">
@@ -260,34 +246,71 @@
         </div>
     </main>
 
-    <!-- MODAL VÉRIFICATION D'ID SÉCURISÉE (NOUVEAU) -->
-    <div class="modal fade" id="verifyFrameModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
-        <div class="modal-dialog modal-xl modal-dialog-centered">
+    <!-- POP-UP CHOIX MÉTHODE DE VÉRIFICATION D'ID -->
+    <div class="modal fade" id="verifyOptionsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
-                <div class="verify-modal-body">
-                    <!-- Barre de contrôle avec boutons Précédent / Recharger -->
-                    <div class="verify-nav-bar">
-                        <div class="d-flex gap-2">
-                            <button type="button" class="btn btn-outline-light btn-sm fw-bold" onclick="iframeGoBack()">
-                                <i class="fa-solid fa-arrow-left me-1"></i> Précédent (Si pub)
-                            </button>
-                            <button type="button" class="btn btn-outline-warning btn-sm fw-bold" onclick="iframeReset()">
-                                <i class="fa-solid fa-rotate me-1"></i> Recharger la page
-                            </button>
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title fw-bold text-warning">
+                        <i class="fa-solid fa-shield-halved me-2"></i>Choisis ta méthode de vérification
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="text-muted small mb-4">
+                        Sélectionne l'une des deux méthodes ci-dessous pour débloquer ton compte et valider ton ID joueur :
+                    </p>
+
+                    <div class="row g-3">
+                        <!-- OPTION 1 : Site Officiel -->
+                        <div class="col-md-6">
+                            <div class="option-card p-3 h-100 d-flex flex-column justify-content-between">
+                                <div>
+                                    <div class="d-flex align-items-center mb-2">
+                                        <span class="badge bg-success me-2">Illimité</span>
+                                        <h6 class="fw-bold mb-0 text-white"><i class="fa-solid fa-globe text-info me-2"></i>Option 1 : Via le Site Direct</h6>
+                                    </div>
+                                    <p class="text-muted small mb-3">
+                                        Accès direct au site officiel de vérification.
+                                    </p>
+                                    <div class="alert alert-dark border-secondary small text-warning p-2 mb-3">
+                                        <i class="fa-solid fa-circle-info me-1"></i> <strong>Avis :</strong> Cette méthode comporte plusieurs publicités, mais elle est <strong>totalement gratuite et illimitée</strong>.
+                                    </div>
+                                </div>
+                                <a href="https://www.unlockffbeta.com/?hl=fr-FR" target="_blank" class="btn btn-outline-warning w-100 fw-bold mt-2">
+                                    <i class="fa-solid fa-up-right-from-square me-1"></i> Ouvrir le Site Direct
+                                </a>
+                            </div>
                         </div>
-                        <span class="small text-muted d-none d-md-inline"><i class="fa-solid fa-shield me-1 text-success"></i> Dr las GAMES - Navigation Sécurisée</span>
-                        <button type="button" class="btn btn-danger btn-sm fw-bold" data-bs-dismiss="modal">
-                            <i class="fa-solid fa-xmark me-1"></i> Fermer
-                        </button>
+
+                        <!-- OPTION 2 : Discord -->
+                        <div class="col-md-6">
+                            <div class="option-card p-3 h-100 d-flex flex-column justify-content-between">
+                                <div>
+                                    <div class="d-flex align-items-center mb-2">
+                                        <span class="badge bg-primary me-2">Sans Pub</span>
+                                        <h6 class="fw-bold mb-0 text-white"><i class="fa-brands fa-discord text-primary me-2"></i>Option 2 : Via Discord</h6>
+                                    </div>
+                                    <p class="text-muted small mb-2">
+                                        Rejoins le serveur et utilise la commande <code>/whitelist</code> puis entre ton ID joueur.
+                                    </p>
+                                    <div class="alert alert-dark border-secondary small text-info p-2 mb-3">
+                                        <i class="fa-solid fa-clock-rotate-left me-1"></i> <strong>Limite :</strong> La commande Discord ne peut être utilisée qu'<strong>une seule fois toutes les 9 heures</strong>.
+                                    </div>
+                                </div>
+                                <a href="https://discord.gg/WaDUaBU8V" target="_blank" class="btn btn-primary w-100 fw-bold mt-2">
+                                    <i class="fa-brands fa-discord me-1"></i> Rejoindre le Discord
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Note d'aide anti-pub pour le client -->
-                    <div class="bg-dark text-warning px-3 py-1 border-bottom border-secondary small text-center">
-                        💡 <strong>Astuce :</strong> Si une publicité s'ouvre, clique simplement sur le bouton <strong>« Précédent »</strong> ci-dessus pour revenir à la vérification sans quitter le site.
+                    <!-- Note d'explication générale -->
+                    <div class="bg-dark border border-secondary rounded p-3 mt-4 text-start">
+                        <p class="mb-0 small text-muted">
+                            💡 <strong>Note importante :</strong> Même si vous avez déjà utilisé la commande Discord et que le compteur de 9h est actif, vous pouvez <strong>toujours revenir utiliser l'Option 1 (Site Direct)</strong> pour débloquer votre compte immédiatement sans attendre !
+                        </p>
                     </div>
-
-                    <!-- Cadre affichant le site externe -->
-                    <iframe id="verifyIframe" class="verify-iframe" src=""></iframe>
                 </div>
             </div>
         </div>
@@ -347,42 +370,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        let currentVerifyUrl = "";
-        const verifyIframe = document.getElementById('verifyIframe');
-        const verifyModal = new bootstrap.Modal(document.getElementById('verifyFrameModal'));
+        const verifyModal = new bootstrap.Modal(document.getElementById('verifyOptionsModal'));
 
-        // 1. Bouton Vérifier l'ID (Ouvre le cadre personnalisé)
+        // Bouton Vérifier l'ID : Ouvre la pop-up de choix
         document.getElementById('btnVerify').addEventListener('click', function() {
-            const playerID = document.getElementById('verifyIDInput').value.trim();
-            if(!playerID) {
-                alert("Veuillez saisir votre ID joueur.");
-                return;
-            }
-            
-            // Construit le lien direct
-            currentVerifyUrl = "https://UnlockFFBeta.com" + encodeURIComponent(playerID);
-            
-            // Charge l'URL dans le cadre et affiche la fenêtre
-            verifyIframe.src = currentVerifyUrl;
             verifyModal.show();
         });
 
-        // 2. Action du bouton Précédent dans le cadre
-        function iframeGoBack() {
-            try {
-                verifyIframe.contentWindow.history.back();
-            } catch(e) {
-                // Si la restriction du navigateur empêche d'accéder à l'historique externe
-                verifyIframe.src = currentVerifyUrl;
-            }
-        }
-
-        // 3. Action du bouton Recharger la page
-        function iframeReset() {
-            verifyIframe.src = currentVerifyUrl;
-        }
-
-        // 4. Gestion de la case à cocher des conditions d'achat
+        // Gestion de la case à cocher des conditions d'achat
         const checkbox = document.getElementById('acceptTerms');
         const payBtn = document.getElementById('btnProceedPay');
 
